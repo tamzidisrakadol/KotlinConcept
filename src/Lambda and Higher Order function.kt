@@ -8,6 +8,15 @@ fun main() {
 
     val calculateWithCouponCode = calculateTotal(120.56,discountedCoupon("10%"))
     println(calculateWithCouponCode)
+
+    //Lambda
+    val total = calculateTotal(50.98,apply5DollarDiscount)
+    val calculate10DollarDiscountWithLambda = calculateTotal(65.78) { price -> price * 0.9 }
+    println(total)
+    println(calculate10DollarDiscountWithLambda)
+    val calculate = calculateTotal(99.99, discountedCoupon("15%"))
+    println(calculate)
+
 }
 
 
@@ -25,8 +34,7 @@ fun calculateTotal(
     applyDiscount:(Double)->Double)   //we can pass function here with the same parameter and return type
 :Double{
     val priceAfterDiscount = applyDiscount(initialPrice)
-    val total = priceAfterDiscount * 0.5
-    return total
+    return priceAfterDiscount
 }
 
 
@@ -37,5 +45,11 @@ fun discountedCoupon(couponCode:String):(Double)->Double = when(couponCode){
 
     "FIVE_DOLLAR" -> ::discountedForFiveDollar
     "10%"-> ::discountedForTenPercent
+    "15%"-> {price-> price * 0.12}  //we can pass lambda instead of higher order function
     else-> ::noDiscount
 }
+
+
+//Lambda
+
+val apply5DollarDiscount: (Double)->Double = {price -> price - 5.00}
