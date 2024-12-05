@@ -9,7 +9,7 @@ fun main() {
     val calculateWithCouponCode = calculateTotal(120.56,discountedCoupon("10%"))
     println(calculateWithCouponCode)
 
-    //Lambda
+    //Lambdas
     val total = calculateTotal(50.98,apply5DollarDiscount)
     val calculate10DollarDiscountWithLambda = calculateTotal(65.78) { price -> price * 0.9 }
     println(total)

@@ -13,5 +13,6 @@
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="jetbrains.kotlinx.coroutines.core" level="application" />
     <orderEntry type="library" name="jetbrains.kotlinx.collections.immutable.jvm" level="application" />
+    <orderEntry type="library" name="kotlin-reflect" level="project" />
   </component>
 </module>
