@@ -20,6 +20,20 @@ With the help of the inline keyword, we can return from the lambda expression it
 exit the function in which inlined function is called.
 
 
+Inline Functions:
+-Copy the function body to the call site.
+-Improve performance for higher-order functions.
+-Allow non-local return statements in lambdas.
+
+noinline:
+
+-Prevents a specific lambda from being inlined.
+-Useful when the lambda needs to be stored or passed to another non-inline function.
+
+crossinline:
+-Ensures a lambda cannot use non-local return statements.
+-Useful when the lambda is executed in a different context.
+
 */
 
 
@@ -33,6 +47,20 @@ inline fun inlineExample(onClick:()->Unit){
     onClick()
 }
 
+fun buttonClick(onClick: (Int) -> Int){
+    onClick(100)
+}
+
+inline fun executeOperations(
+    a: Int,
+    b: Int,
+    crossinline operation1: (Int, Int) -> Int, // Non-local returns NOT allowed
+    noinline operation2: (Int, Int) -> Int // This lambda will NOT be inlined
+): Int {
+    val result1 = operation1(a, b)
+    val result2 = operation2(a, b)
+    return result1 + result2
+}
 
 fun main() {
     val numList = listOf<Int>(65,5,23,454,23,12,34)
@@ -45,6 +73,21 @@ fun main() {
         print("Inline function is called and add return")
         return
     }
+
+    val returnData = buttonClick {
+        it * 2
+    }
+
+
+
+    val result = executeOperations(
+        5,
+        10,
+        { x, y -> x + y }, // operation1 (crossinline)
+        { x, y -> x * y }  // operation2 (noinline)
+    )
+    println(result)
+
 
 }
 
